@@ -1,8 +1,31 @@
 import React from 'react'
-
+import Logo from '../../assets/Logo.png'
+import { Link } from 'react-router-dom'
+import SearchIcon from '@mui/icons-material/Search';
 const Header = () => {
     return (
-        <div>Header</div>
+        <header>
+            <div className="header-container">
+                <div className="header-left">
+                    <Link to='/' className="header-left-brand">
+                        <img src={Logo} alt="logo" />
+                        <h1>Awaas Kalpana</h1>
+                    </Link>
+                </div>
+                <div className="header-center">
+                    <div className="header-center-search">
+                        <input type="text" name="" id="" placeholder='Search by property name' />
+                        <SearchIcon className="search-icon" />
+                    </div>
+                </div>
+                <div className="header-right">
+                    <div className="header-right-login">
+                        <Link to='/login'>Login</Link>
+                        <Link to='/register'>Register</Link>
+                    </div>
+                </div>
+            </div>
+        </header>
     )
 }
 

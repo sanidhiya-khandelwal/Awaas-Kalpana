@@ -6,7 +6,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import NotFound404 from './pages/NotFound404'
-
+import './App.css'
 const App = () => {
   return (
     <Routes>
