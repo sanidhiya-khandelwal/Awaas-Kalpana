@@ -1,13 +1,15 @@
 import { Button, FormControl, TextField } from '@mui/material'
 import React from 'react'
 import alert from '../utility/alert';
+import { Navigate } from 'react-router-dom';
 
 const RegisterPage = () => {
-    let name = React.useRef();
-    let phone = React.useRef();
-    let email = React.useRef();
-    let username = React.useRef();
-    let password = React.useRef();
+    const [redirect, setRedirect] = React.useState(false)
+    const name = React.useRef();
+    const phone = React.useRef();
+    const email = React.useRef();
+    const username = React.useRef();
+    const password = React.useRef();
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
@@ -60,21 +62,20 @@ const RegisterPage = () => {
                 password: passwordVal
             })
         })
+        console.log('response of register', response)
 
         if (response.ok) {
             const data = await response.json()
-            name.current.value = "";
-            phone.current.value = ""
-            email.current.value = ""
-            username.current.value = ""
-            password.current.value = ""
             alert('User Registered', 'success')
+            setRedirect(true)
         }
         else {
             const data = await response.json()
             alert(data, 'error')
         }
-
+    }
+    if (redirect) {
+        return <Navigate to={'/login'} />
     }
     return (
         <div className="register-page">
