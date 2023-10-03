@@ -2,9 +2,11 @@ import React from 'react'
 import { Button, FormControl, TextField } from '@mui/material'
 import alert from '../utility/alert';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
     const [redirect, setRedirect] = React.useState(false)
+    const { setUserInfo } = React.useContext(UserContext)
 
     const username = React.useRef();
     const password = React.useRef();
@@ -27,7 +29,7 @@ const LoginPage = () => {
             return;
         }
         if (!passwordFormat.test(passwordVal)) {
-            alert('password should have minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:', 'error')
+            alert('Password should have minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:', 'error')
             return
         }
 
@@ -42,13 +44,13 @@ const LoginPage = () => {
             }),
             credentials: 'include'
         })
+        const data = await response.json();
         if (response.ok) {
-            const data = await response.json();
-            alert('Logged In', 'success')
+            alert(data.success, 'success')
+            setUserInfo(data.data)
             setRedirect(true)
         }
         else {
-            const data = await response.json()
             alert(data, 'error')
         }
     }
